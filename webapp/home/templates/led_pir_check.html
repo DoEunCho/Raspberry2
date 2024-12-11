@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LED & Motion Monitor</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin-top: 50px;
+        }
+        .message {
+            margin-top: 20px;
+            font-size: 24px;
+            color: blue;
+        }
+    </style>
+    <script>
+        function checkMotion() {
+            fetch("/motion_status")
+                .then(response => response.text())
+                .then(data => {
+                    document.getElementById("motion-message").innerText = data;
+                })
+                .catch(error => console.error("Error:", error));
+        }
+
+        setInterval(checkMotion, 1000);
+    </script>
+</head>
+<body>
+    <h1>LED & Motion Monitoring</h1>
+    <p>Motion Monitoring</p>
+    <div id="motion-message" class="message">{{ motion_status }}</div>
+</body>
+</html>

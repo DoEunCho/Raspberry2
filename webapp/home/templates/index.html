@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LED Control</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin-top: 50px;
+        }
+        button {
+            font-size: 20px;
+            padding: 10px 20px;
+            margin: 10px;
+            cursor: pointer;
+        }
+        .on {
+            background-color: green;
+            color: white;
+        }
+        .off {
+            background-color: red;
+            color: white;
+        }
+    </style>
+</head>
+<body>
+    <h1>LED Control</h1>
+    <p>Click the button</p>
+    <button class="on" onclick="sendRequest('/led_on')">LED ON</button>
+    <button class="off" onclick="sendRequest('/led_off')">LED OFF</button>
+    <div id="message" class="message"></div>
+
+    <script>
+        function sendRequest(url) {
+            fetch(url, { method: 'POST' })
+                .then(response => response.text())
+                .then(data => {
+                    // Display the response text
+                    document.getElementById('message').innerText = data;
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    document.getElementById('message').innerText = "An error occurred";
+                });
+        }
+    </script>
+</body>
+</html>
